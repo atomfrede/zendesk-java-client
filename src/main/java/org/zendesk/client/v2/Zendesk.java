@@ -1567,6 +1567,13 @@ public class Zendesk implements Closeable {
                 JSON, json(Collections.singletonMap("section", section))), handle(Section.class, "section")));
     }
 
+    public Translation createSectionTranslation(Long sectionId, Translation translation) {
+
+        return complete(submit(req("POST", tmpl("/help_center/sections/{id}/translations.json")
+                        .set("sectionId", sectionId),
+                JSON, json(Collections.singletonMap("translation", translation))), handle(Translation.class, "translation")));
+    }
+
     public Translation updateSectionTranslation(Long sectionId, String locale, Translation translation) {
         checkHasId(translation);
         return complete(submit(req("PUT", tmpl("/help_center/sections/{id}/translations/{locale}.json").set("id", sectionId).set("locale",locale),
