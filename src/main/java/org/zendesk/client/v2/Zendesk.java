@@ -1966,7 +1966,7 @@ public class Zendesk implements Closeable {
 	public Translation createCategoryTranslation(Long categoryId, Translation translation) {
 
 		return complete(submit(req("POST", tmpl("/help_center/categories/{id}/translations.json")
-						.set("categoryId", categoryId),
+						.set("id", categoryId),
 				JSON, json(Collections.singletonMap("translation", translation))), handle(Translation.class, "translation")));
 	}
 
