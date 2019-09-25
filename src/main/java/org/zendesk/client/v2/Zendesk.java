@@ -1661,6 +1661,16 @@ public class Zendesk implements Closeable {
 				tmpl("/help_center/articles/{articleId}/translations.json").set("articleId", articleId),
 				handleList(Translation.class, "translations"));
 	}
+
+	public Translation getArticleTranslation(Long articleId, String locale) {
+
+		return complete(submit(req("GET", tmpl("/help_center/articles/{articleId}/translations/{locale}.json")
+						.set("articleId", articleId)
+						.set("locale", locale)),
+				handle(Translation.class, "translation")
+		));
+	}
+
 	public Article createArticle(Article article) {
 		checkHasSectionId(article);
 		return complete(submit(req("POST", tmpl("/help_center/sections/{id}/articles.json").set("id", article.getSectionId()),
